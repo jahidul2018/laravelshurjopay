@@ -25,10 +25,10 @@
  	@include ('shurjopayment.partials.css')
 </head>
    <body class="app sidebar-mini rtl">
-        @include ('shurjopayment.partials.header')
+        @include ('shurjopayment.partials.header1')
 
         <!-- Navbar-->
-        {{-- @include ('shurjopayment.partials.sidebar') --}}
+        @include ('shurjopayment.partials.sidebar')
         <main class="app-content">
             @include ('shurjopayment.partials.massage')
             @yield('content')
