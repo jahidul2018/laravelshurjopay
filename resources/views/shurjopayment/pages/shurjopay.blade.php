@@ -7,7 +7,7 @@
         <div class="row">
           <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <div class="img">
-              <img src="{{ asset('images/shurjopay-logo.png') }}" alt="" class="center">
+              <img src="{{ asset('payment/images/shurjopay-logo.png') }}" alt="" class="center">
               <hr>
             </div>
               <form id="regForm" method="post" action="{{ route('payment.post') }}">

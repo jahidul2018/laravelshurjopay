@@ -1,7 +1,8 @@
 <aside class="app-sidebar">
       <div class="app-sidebar__user">
 
-              <img class="app-sidebar__user-avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="Image">
+              <img class="app-sidebar__user-avatar" src="{{ asset('payment/images/userimage.jpg') }}" alt="Image">
+
 
         <div>
           <span class="text-info">Welcome,</span>
