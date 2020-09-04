@@ -1,4 +1,4 @@
-@extends('shurjopayment.layouts.master')
+@extends('layouts.app')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -7,7 +7,10 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
-                    @if (session('status'))
+                    <div id="success">
+                        <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+                    </div>
+                    {{-- @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
@@ -15,18 +18,18 @@
 
 
 
-                    @if (Auth::user()->status ==1 || Auth::user()->spCode ==0)
-                    {{ __('You are logged in! pay your Payment to download you Admit card') }}
+                    @if (Auth::user()->status ==1 || Auth::user()->spCode =='000')
+                    {{ __('You Have SuccessFully Paid') }}
 
-                        <a class="nav-link" href="{{ route('admit.index') }}"> download admit card</a>
+                        <a class="nav-link" href="{{ route('admit.index') }}"> Download Admit Card</a>
 
 
-                    @elseif(Auth::user()->status ==0 || Auth::user()->spCode ==1)
+                    @elseif(Auth::user()->status ==0 || Auth::user()->spCode =='001')
                     your payment is  fail please try one more time
                         <a class="nav-link" href="{{ route('payment.index') }}"> Bkash Payment </a>
 
 
-                        @endif
+                        @endif --}}
 
 
 
@@ -36,102 +39,56 @@
         </div>
     </div>
 </div>
-
-@endsection
-@section('script')
+{{-- @section('script') --}}
+<script src="{{ asset('js/jquery-3.2.1.min.js') }}" ></script>
 <script type="text/javascript">
+        const queryString = window.location.search;
 
-    const queryString = window.location.search;
+        //console.log(queryString);
+    
+        const urlParams = new URLSearchParams(queryString);
+    
+            const url_data={
+                'status':urlParams.get('status'),
+                'msg':urlParams.get('msg'),
+                'tx_id':urlParams.get('tx_id'),
+                'bank_tx_id':urlParams.get('bank_tx_id'),
+                'amount':urlParams.get('amount'),
+                'bank_status':urlParams.get('bank_status'),
+                'sp_code':urlParams.get('sp_code'),
+                'sp_code_des':urlParams.get('sp_code_des'),
+                'sp_payment_option':urlParams.get('sp_payment_option'),
+            }
+            //console.log(url_data.sp_code);
+            if(url_data.sp_code=='000'){
+                $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('#token').val()
+                    },
+                });
+    
+            $.ajax({
+              type: "post",
+              url: "{{ url('/status/post')}}",
+              data: url_data,
+              success: function (response) {
+                 console.log(response);
+                
+                window.location='/admit';
+                //window.location.={{URL::to('restaurants/20')}}
+    
+               // window.location.assign("/get");
+    
+                    }
+              });
+                
+                    
+            }else{
 
-    //console.log(queryString);
-
-    const urlParams = new URLSearchParams(queryString);
-
-    //console.log('......................');
-
-
-    // if(urlParams.has('status')){
-
-    //     const status = urlParams.get('status')
-    //     console.log(status);
-
-    // }
-    // else{
-    //     status ='FAIL';
-    // }
-
-
-    const status = urlParams.get('status')
-        console.log(status);
-
-    const msg = urlParams.get('msg')
-    console.log(msg);
-
-    const tx_id = urlParams.get('tx_id')
-    console.log(tx_id);
-
-    const bank_tx_id = urlParams.get('bank_tx_id')
-    console.log(bank_tx_id);
-
-
-    const amount = urlParams.get('amount')
-    console.log(amount);
-
-
-    const bank_status = urlParams.get('bank_status')
-    console.log(bank_status);
-
-
-
-    const sp_code = urlParams.get('sp_code')
-    console.log(sp_code);
-
-
-
-    const sp_code_des = urlParams.get('sp_code_des')
-    console.log(sp_code_des);
-
-
-    const sp_payment_option = urlParams.get('sp_payment_option')
-    console.log(sp_payment_option);
-
-
-    $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                },
-            });
-
-        $.ajax({
-          type: "post",
-          url: "{{ url('/status/post')}}",
-          data: {
-            status:status,
-            sp_code:sp_code,
-          },
-          success: function (response) {
-            // console.log(response);
-
-            alert('ok');
-
-           // window.location.assign("/get");
-
-                }
-          });
+            }
+    
+    </script>
+@endsection
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-</script>
-
-@stop

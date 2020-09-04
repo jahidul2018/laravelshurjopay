@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-         'name', 'email', 'password','fathername','mothername','presentaddress','permanentaddress','mobile','parentmobileno','presentschoolname','classname','roll','examlanguage'
+         'name','password','image','fathername','mothername','presentaddress','permanentaddress','mobile','parentmobileno','presentschoolname','classname','roll','examlanguage','session'
     ];
 
     /**
@@ -36,4 +36,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public static function boot()
+    
+	{
+        parent::boot();
+		static::creating(function ($model) {
+                // Remember that $model here is an instance of Article
+                
+                $model->user_id = date('Y').$model::max('id')+1;
+                //dd($model->user_id );
+        });
+	}
 }

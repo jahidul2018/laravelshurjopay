@@ -16,27 +16,29 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('email')->unique();
-
+            $table->string('user_id')->unique();
+            $table->string('session');
+            $table->string('password');
+            $table->string('image');
             $table->string('fathername');
             $table->string('mothername');
-            $table->string('presentaddress');
-            $table->string('permanentaddress');
+            $table->string('presentaddress')->nullable();
+            $table->string('permanentaddress')->nullable();
             $table->string('mobile');
-            $table->string('parentmobileno');
-            $table->string('presentschoolname');
-            $table->string('classname');
+            $table->string('parentmobileno')->nullable();
+            $table->string('presentschoolname')->nullable();
+            $table->string('classname')->nullable();
             $table->string('roll');
             $table->string('examlanguage');
-            $table->string('nameOfTheInstitution')->default('BCA Academy');
-            $table->string('addressOfTheInstitution')->default('Dhaka 1200');
+            //$table->string('nameOfTheInstitution')->default('BCA Academy');
+            //$table->string('addressOfTheInstitution')->default('Dhaka 1200');
 
-            $table->string('status')->default('FAIL');
+            $table->boolean('is_admin')->default(0)->comment('0-student, 1=admin');
             $table->string('sp_code')->default('001');
             $table->string('bankTxStatus')->default('FAIL');
 
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+          
             $table->rememberToken();
             $table->timestamps();
         });

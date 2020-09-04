@@ -50,26 +50,27 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'mobile' => ['required', 'string', 'max:255'],
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
 		
 		/**
              * custom field
              */
-            'fathername' => ['required', 'string', 'max:255'],
-            'mothername' => ['required', 'string', 'max:255'],
-            'presentaddress' => ['required', 'string', 'max:255'],
-            'permanentaddress' => ['required', 'string', 'max:255'],
-            'mobile' => ['required', 'string', 'max:255'],
-            'parentmobileno' => ['required', 'string', 'max:255'],
-            'presentschoolname' => ['required', 'string', 'max:255'],
-            'classname' => ['required', 'string', 'max:255'],
-            'roll' => ['required', 'string', 'max:255'],
-            'examlanguage' => ['required', 'string', 'max:255'],
-            /**
-             * custom field
-             */
+            // 'fathername' => ['required', 'string', 'max:255'],
+            // 'mothername' => ['required', 'string', 'max:255'],
+            // 'presentaddress' => ['required', 'string', 'max:255'],
+            // 'permanentaddress' => ['required', 'string', 'max:255'],
+            // 'mobile' => ['required', 'string', 'max:255'],
+            // 'parentmobileno' => ['required', 'string', 'max:255'],
+            // 'presentschoolname' => ['required', 'string', 'max:255'],
+            // 'classname' => ['required', 'string', 'max:255'],
+            // 'roll' => ['required', 'string', 'max:255'],
+            // 'examlanguage' => ['required', 'string', 'max:255'],
+            // /**
+            //  * custom field
+            //  */
 
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
@@ -81,24 +82,32 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        //dd($data);
+        if($data['image']){
+            //$image= $data->file('image');
+            $img=time().'.'.$data['image']->getClientOriginalExtension();
+            //dd($img);
+             //$location= public_path('img/profile/'.$img);
+             $data['image']->move(public_path('img/profile'),$img);
+ }
+        
         return User::create([
             'name' => $data['name'],
-            'email' => $data['email'],
-	    'fathername' => $data['fathername'],
+            'image' => $img,
+        
+            //'email' => $data['email'],
+	        'fathername' => $data['fathername'],
             'mothername' => $data['mothername'],
             'presentaddress' => $data['presentaddress'],
             'permanentaddress' => $data['permanentaddress'],
             'mobile' => $data['mobile'],
-            'parentmobileno' => $data['parentmobileno'],
+            //'parentmobileno' => $data['parentmobileno'],
             'presentschoolname' => $data['presentschoolname'],
             'classname' => $data['classname'],
             'roll' => $data['roll'],
             'examlanguage' => $data['examlanguage'],
-
-             /**
-              * custom field
-              */
-            'password' => Hash::make($data['password']),
+            'session' => date('Y'),
+            'password' => Hash::make($data['mobile']),
         ]);
     }
 }

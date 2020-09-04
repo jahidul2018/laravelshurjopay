@@ -31,8 +31,9 @@ class PaymentController extends Controller
 
     public function admit()
     {
-        if(Auth::user()->spCode ==0){
-            return view('shurjopayment.pages.admit');
+        if(Auth::user()->sp_code =='000'){
+            $student=User::find(Auth::User()->id);
+            return view('admit_card.admit_card')->with('student',$student);
         }
         else{
             return view('shurjopayment.pages.shurjopay');
@@ -55,7 +56,7 @@ class PaymentController extends Controller
 
         if($request->status!=null && $request->sp_code !=null){
 
-            $paymentinfo->status = $request->status;
+            //$paymentinfo->status = $request->status;
             $paymentinfo->sp_code = $request->sp_code;
         }else{
 
@@ -74,11 +75,6 @@ class PaymentController extends Controller
             Session::flash('warning','payment is not successfull');
             return view('shurjopayment.pages.shurjopay');
         }
-
-
-
-
-
 
     }
 

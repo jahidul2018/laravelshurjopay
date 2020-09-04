@@ -31,3 +31,4 @@ Route::post('/status/post', 'PaymentController@paymentstatus')->name('status.vie
 
 //admitcard
 Route::get('/admit', 'PaymentController@admit')->name('admit.index');
+Route::get('student/exam', 'ExamController@index')->name('exam.index');

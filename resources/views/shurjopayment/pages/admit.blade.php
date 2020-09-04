@@ -35,7 +35,7 @@
                 <div class="card-header">Your admit card</div>
 
                 <div class="card-body">
-                  <h3><center> </center></h3>
+                  <h3><center></center></h3>
 					<div id="admitcard">
 
                         <div class="row justify-content-md-center" id="print-div">
