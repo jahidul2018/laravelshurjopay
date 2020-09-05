@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\r;
+use App\User;
+use DataTables;
+Use Auth;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -14,7 +16,22 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.home');
+    }
+    public function student_list()
+    {
+        return view('admin.student_list');
+    }
+    public function admin_admit($id)
+    {
+        // if(Auth::user()->sp_code =='001'){
+            $student=User::find(Auth::User()->id);
+            return view('admit_card.admit_card')->with('student',$student);
+        // }
+        // else{
+        //     return view('shurjopayment.pages.shurjopay');
+        // }
+
     }
 
     /**
@@ -22,9 +39,19 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function studentSyncTable()
     {
-        //
+        $students=User::where('is_admin',0)->get();
+        $data_table_render = DataTables::of($students)
+            ->addColumn('action',function ($row){
+
+                return 
+                    '<a  href="/admin/admit/'.$row['id'].'" target="_blank" class="btn btn-light btn-sm delete_class">Admit</button>';
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        return $data_table_render;
     }
 
     /**

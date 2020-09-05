@@ -16,7 +16,7 @@ class Admin
     public function handle($request, Closure $next)
     {
         if(auth()->user()->is_admin == 1){
-            return view('admin/home');
+            return redirect()->route('admin.index');
           }
            
         return $next($request);

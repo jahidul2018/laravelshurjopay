@@ -73,8 +73,12 @@
               data: url_data,
               success: function (response) {
                  console.log(response);
-                
-                window.location='/admit';
+                if(){
+                    window.location='/admit';
+                }else{
+                    window.location='/shurjopay'
+                }
+               
                 //window.location.={{URL::to('restaurants/20')}}
     
                // window.location.assign("/get");

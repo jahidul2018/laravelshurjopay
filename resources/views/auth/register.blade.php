@@ -187,13 +187,13 @@
                             <div class="form-group">
                                 <label for="examlanguage" class="form-control-level">{{ __('Exam Language') }} <span class="text-danger">*</span></label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="examlanguage" id="exampleRadios1" value="option1" checked>
+                                    <input class="form-check-input" type="radio" name="examlanguage" id="exampleRadios1" value="Bangla Version" checked>
                                     <label class="form-check-label" for="exampleRadios1">
                                       Bangla Version
                                     </label>
                                   </div>
                                   <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="examlanguage" id="exampleRadios2" value="option2">
+                                    <input class="form-check-input" type="radio" name="examlanguage" id="exampleRadios2" value="Bangla Version">
                                     <label class="form-check-label" for="exampleRadios2">
                                       English Version
                                     </label>

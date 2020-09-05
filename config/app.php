@@ -167,6 +167,7 @@ return [
          */
 
         smasif\ShurjopayLaravelPackage\ShurjopayServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
 
         /*
          * Application Service Providers...

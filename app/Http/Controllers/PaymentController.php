@@ -16,7 +16,7 @@ class PaymentController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth']);
     }
     /**
      * Display a listing of the resource.
@@ -29,9 +29,9 @@ class PaymentController extends Controller
     }
 
 
-    public function admit()
+    public function admit($id)
     {
-        if(Auth::user()->sp_code =='000'){
+        if(Auth::user()->sp_code =='001'){
             $student=User::find(Auth::User()->id);
             return view('admit_card.admit_card')->with('student',$student);
         }
@@ -56,25 +56,39 @@ class PaymentController extends Controller
 
         if($request->status!=null && $request->sp_code !=null){
 
-            //$paymentinfo->status = $request->status;
+            $paymentinfo->status = $request->status;
+            $paymentinfo->msg = $request->msg;
+            $paymentinfo->tx_id = $request->tx_id;
+            $paymentinfo->bank_tx_id = $request->bank_tx_id;
+            $paymentinfo->amount = $request->amount;
+            $paymentinfo->bank_status = $request->bank_status;
             $paymentinfo->sp_code = $request->sp_code;
+            $paymentinfo->sp_code_des = $request->sp_code_des;
+            $paymentinfo->sp_payment_option = $request->sp_payment_option;
+            $paymentinfo->update();
+            //Session::flash('success','Successfully paid your fee');
+            //return view('shurjopayment.pages.admit');
+            return json_decode('success');
         }else{
 
             $paymentinfo->status = 'FAIL';
             $paymentinfo->sp_code = '001';
+            $paymentinfo->update();
+            // Session::flash('warning','payment is not successfull');
+            // return view('shurjopayment.pages.shurjopay');
+            return json_decode('Failed');
+            
         }
 
-        $paymentinfo->update();
+        
 
-        $paymentinfo = User::find($id);
-        if($paymentinfo->status !='FAIL'){
+        // $paymentinfo = User::find($id);
+        // if($paymentinfo->status !='FAIL'){
 
-            Session::flash('success','Successfully paid your fee');
-            return view('shurjopayment.pages.admit');
-        }else{
-            Session::flash('warning','payment is not successfull');
-            return view('shurjopayment.pages.shurjopay');
-        }
+            
+        // }else{
+           
+        // }
 
     }
 

@@ -25,4 +25,13 @@ class HomeController extends Controller
     {
         return view('student/home');
     }
+    public function user_credential()
+    {
+        return view('credential.user_credential');
+    }
+    public function contact_us()
+    {
+        return view('contact_us.contact_us');
+    }
 }
+

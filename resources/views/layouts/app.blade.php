@@ -68,11 +68,14 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Result') }}</a>
                         </li>
+                        @if (Auth::User()->is_admin==0)
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admit.index') }}">{{ __('Admit Card') }}</a>
+                            <a class="nav-link" href="{{ route('admit.index',[Auth::User()->id]) }}">{{ __('Admit Card') }}</a>
                         </li>
+                        @endif
+                        
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('payment.index') }}">{{ __('Contact Us') }}</a>
+                            <a class="nav-link" href="{{ route('contact_us') }}">{{ __('Contact Us') }}</a>
                         </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -80,6 +83,10 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('user_credential') }}">
+                                       
+                                        {{ __('Login Info') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -138,6 +145,6 @@
         </main>
     </div>
     
-    {{-- @yield('script') --}}
+     @yield('script')
 </body>
 </html>

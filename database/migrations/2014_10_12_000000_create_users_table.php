@@ -36,6 +36,13 @@ class CreateUsersTable extends Migration
             $table->boolean('is_admin')->default(0)->comment('0-student, 1=admin');
             $table->string('sp_code')->default('001');
             $table->string('bankTxStatus')->default('FAIL');
+            $table->string('status')->nullable();
+            $table->string('msg')->nullable();
+            //$table->string('bank_tx_id')->nullable();
+            $table->string('amount')->nullable();
+            $table->string('bank_status')->nullable();
+            $table->string('sp_payment_option')->nullable();
+            $table->string('sp_code_des')->nullable();
 
             $table->timestamp('email_verified_at')->nullable();
           

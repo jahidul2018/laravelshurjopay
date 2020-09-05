@@ -55,10 +55,10 @@ class LoginController extends Controller
         //         ?: redirect()->intended($this->redirectPath());
         //dd($this->guard()->user()->is_admin);
         if ($this->guard()->user()->is_admin==1) {
-            return view('admin/home');
+            return redirect()->route('admin.index');
         } else if($this->guard()->user()->is_admin==0) {
             //dd($this->guard()->user()->is_admin);
-            return redirect('/home');
+            return redirect()->route('user_credential');
         }
         
     }
