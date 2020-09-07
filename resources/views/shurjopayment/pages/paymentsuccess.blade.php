@@ -5,7 +5,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
-
+                <input type="number" id="user_id" value="{{ Auth::user()->id }}" hidden>
                 <div class="card-body">
                     <div id="success">
                         <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
@@ -47,7 +47,7 @@
         //console.log(queryString);
     
         const urlParams = new URLSearchParams(queryString);
-    
+    var user_id=$('#user_id').val();
             const url_data={
                 'status':urlParams.get('status'),
                 'msg':urlParams.get('msg'),
@@ -59,7 +59,7 @@
                 'sp_code_des':urlParams.get('sp_code_des'),
                 'sp_payment_option':urlParams.get('sp_payment_option'),
             }
-            //console.log(url_data.sp_code);
+            console.log(url_data);
             if(url_data.sp_code=='000'){
                 $.ajaxSetup({
                 headers: {
@@ -73,10 +73,10 @@
               data: url_data,
               success: function (response) {
                  console.log(response);
-                if(){
-                    window.location='/admit';
+                if(response=='success'){
+                    window.location='/admit/'+user_id;
                 }else{
-                    window.location='/shurjopay'
+                    window.location='/shurjopay';
                 }
                
                 //window.location.={{URL::to('restaurants/20')}}

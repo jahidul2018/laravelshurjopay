@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/user/credential';
 
     /**
      * Create a new controller instance.
@@ -53,24 +53,6 @@ class RegisterController extends Controller
             'mobile' => ['required', 'string', 'max:255'],
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:100',
 		
-		/**
-             * custom field
-             */
-            // 'fathername' => ['required', 'string', 'max:255'],
-            // 'mothername' => ['required', 'string', 'max:255'],
-            // 'presentaddress' => ['required', 'string', 'max:255'],
-            // 'permanentaddress' => ['required', 'string', 'max:255'],
-            // 'mobile' => ['required', 'string', 'max:255'],
-            // 'parentmobileno' => ['required', 'string', 'max:255'],
-            // 'presentschoolname' => ['required', 'string', 'max:255'],
-            // 'classname' => ['required', 'string', 'max:255'],
-            // 'roll' => ['required', 'string', 'max:255'],
-            // 'examlanguage' => ['required', 'string', 'max:255'],
-            // /**
-            //  * custom field
-            //  */
-
-            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
@@ -88,7 +70,7 @@ class RegisterController extends Controller
             $img=time().'.'.$data['image']->getClientOriginalExtension();
             //dd($img);
              //$location= public_path('img/profile/'.$img);
-             $data['image']->move(public_path('img/profile'),$img);
+             $data['image']->move(  ('img/profile'),$img);
  }
         
         return User::create([
@@ -101,7 +83,7 @@ class RegisterController extends Controller
             'presentaddress' => $data['presentaddress'],
             'permanentaddress' => $data['permanentaddress'],
             'mobile' => $data['mobile'],
-            //'parentmobileno' => $data['parentmobileno'],
+            'parentmobileno' => $data['parentmobileno'],
             'presentschoolname' => $data['presentschoolname'],
             'classname' => $data['classname'],
             'roll' => $data['roll'],

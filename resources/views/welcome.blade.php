@@ -196,10 +196,7 @@
                      <ul>
                          <li class="p-2">১ ঘন্টা।</li>
                      </ul>
-                     <div class="card-header text-info"><strong>{{ __('*পরীক্ষা গ্রহণ পদ্ধতি:') }}</strong></div>
-                     <ul>
-                         <li class="p-2">পরীক্ষা হবে ওপেন বুক এক্সাম পদ্ধতিতে। </li>
-                     </ul>
+                     
                      <div class="card-header text-info"><strong>{{ __('*পরীক্ষা গ্রহণ পদ্ধতি:') }}</strong></div>
                      <ul>
                          <li class="p-2">পরীক্ষা হবে ওপেন বুক এক্সাম পদ্ধতিতে। </li>

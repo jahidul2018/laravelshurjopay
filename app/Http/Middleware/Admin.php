@@ -15,10 +15,14 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->user()->is_admin == 1){
-            return redirect()->route('admin.index');
+        if(Auth()->user()->is_admin == 1){
+            //return response()->json('working', 200);
+            //return redirect('/admin');
+            //return redirect()->route('admin.index');
+            //return true;
+           return $next($request);
           }
            
-        return $next($request);
+          return redirect('/home');
     }
 }

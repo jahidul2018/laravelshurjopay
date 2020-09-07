@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>bca-britti</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -42,38 +42,50 @@
                         <!-- Authentication Links -->
                         @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Home') }}</a>
+                            <a class="nav-link" href="{{ url('/') }}">{{ __('Home') }}</a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Print Admit Card') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Contact Us') }}</a>
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Online Exam') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Result') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('contact_us') }}">{{ __('Contact Us') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Online Register') }}</a>
                                 </li>
                             @endif
                         @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Home') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('payment.index') }}">{{ __('Payment') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('exam.index') }}">{{ __('Exam') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Result') }}</a>
+                            <a class="nav-link" href="{{ url('/') }}">{{ __('Home') }}</a>
                         </li>
                         @if (Auth::User()->is_admin==0)
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admit.index',[Auth::User()->id]) }}">{{ __('Admit Card') }}</a>
-                        </li>
+                                @if (Auth::User()->sp_code=='000' && Auth::User()->session==strlen(date('Y')))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('payment.index') }}">{{ __('Payment') }}</a>
+                                    </li>
+                                @endif
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admit.index',[Auth::User()->id]) }}">{{ __('Print Admit Card') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('exam.index') }}">{{ __('Online Exam') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">{{ __('Result') }}</a>
+                            </li>
+                       
                         @endif
-                        
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('contact_us') }}">{{ __('Contact Us') }}</a>
                         </li>
@@ -106,45 +118,24 @@
 
         <main class="py-4">
             @yield('content')
-            <div class="container">
-                <div class="row justify-content-center">
-            <div class="col-md-12 mt-5">
-                <div class="jumbotron" style="margin-bottom:0">
-                   <div class="row">
-                    <div class="col-md-6">
-                        <h5>পরীক্ষা নিয়ন্ত্রক: </h5>
-                        <p>01816819679</p>
-                    </div>
-                        <div class="col-md-6">
-                            <h5>হেড অফিস:</h5>
-                            <p>পূর্ব তেজতুরীবাজার (সরকারী বিজ্ঞান কলেজের বিপরীতে) <br> ফার্মগেট, তেজগাঁও, ঢাকা। <br>ফোন: 029121212</p>
-                                
-                            
-                        </div>
-                       <div class="col-md-6">
-                        <h5>মোহাম্মদপুর অফিস:</h5>
-                        <p>16/14, তাজমহলরোড, মোহাম্মদপুর, ঢাকা।<br>
-                             ফোন: 029111505
-                        
-                       </div>
-                       <div class="col-md-6">
-                        <h5> আজিমপুর অফিস:</h5>
-                        <p> 103, আজিমপুর রোড, আজিমপুর, ঢাকা।<br>
-                            ফোন: 029665143</p>
-                            
-                        
-                       </div>
-                   </div>
-                </div>
-                       
-                   </div>
-                  </div>
-            </div>
+            
                 </div>
             </div>
         </main>
     </div>
-    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 mt-5">
+                <div class="card">
+                    <div class="card-header text-center">
+                        &copy; Copyright 2020 <a href="http://www.fmit.app">fmit<a>
+                    </div>
+                </div>
+           </div>
+          </div>
+        </div>
+        </div>
+    </div>
      @yield('script')
 </body>
 </html>

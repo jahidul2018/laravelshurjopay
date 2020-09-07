@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +29,7 @@ class AdminController extends Controller
     public function admin_admit($id)
     {
         // if(Auth::user()->sp_code =='001'){
-            $student=User::find(Auth::User()->id);
+            $student=User::find($id);
             return view('admit_card.admit_card')->with('student',$student);
         // }
         // else{

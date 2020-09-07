@@ -109,7 +109,7 @@
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="mobile" class="form-control-level">{{ __('Mobile Number (Mother) ') }} <span class="text-danger">*</span></label>
+                                <label for="mobile" class="form-control-level">Mother's Mobile <span class="text-danger">*</span></label>
 
                                 
                                     <input id="mobile" type="text" class="form-control @error('mobile') is-invalid @enderror" name="mobile" value="{{ old('mobile') }}" required autocomplete="mobile" autofocus>
@@ -121,12 +121,12 @@
                                     @enderror
                                 </div>
                         </div>
-                        {{-- <div class="col-6">
+                        <div class="col-6">
                             <div class="form-group">
-                                <label for="parentmobileno" class="form-control-level">{{ __('Parent mobile No(Father)') }}</label>
+                                <label for="parentmobileno" class="form-control-level">Father's Mobile</label>
 
                                 
-                                    <input id="parentmobileno" type="text" class="form-control @error('parentmobileno') is-invalid @enderror" name="parentmobileno" value="{{ old('parentmobileno') }}" required autocomplete="parentmobileno" autofocus>
+                                    <input id="parentmobileno" type="text" class="form-control @error('parentmobileno') is-invalid @enderror" name="parentmobileno" value="{{ old('parentmobileno') }}"  autocomplete="parentmobileno" autofocus>
 
                                     @error('parentmobileno')
                                         <span class="invalid-feedback" role="alert">
@@ -134,7 +134,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                        </div> --}}
+                        </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="presentschoolname" class="form-control-level">{{ __('School') }}</label>
@@ -158,9 +158,6 @@
                                     <option value="Six">Six</option>
                                     <option value="Seven">Seven</option>
                                     <option value="Eight">Eight</option>
-                                    <option value="Nine">Nine</option>
-                                    <option value="Ten">Ten</option>
-                        
                                 </Select>
                                     @error('classname')
                                         <span class="invalid-feedback" role="alert">
@@ -222,5 +219,63 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('js/jquery-3.2.1.min.js') }}" ></script>
+<script>
+    $(document).ready(function () {
+        var _URL = window.URL || window.webkitURL;
+        $("#image").change(function () {
+        if(fileExtValidate(this) && fileSizeValidate(this)) { // file extension validation function
+            
+            checkImageRatioInPixel(this);
+	    // 	 if(fileSizeValidate(this)) { // file size validation function
+        //   readURL(this);
+	     }
+        });
+        function checkImageRatioInPixel(image){
+            var upimage=image.files[0];
+            var img =new Image();
+            img.src = _URL.createObjectURL(upimage);
+            img.onload=function(){
+                var width=this.width;
+                var height=this.height;
+                if(height && width !== 300){
+                    $('input[type=file]').val(null);
+                    alert('Please Upload 300*300 pixel Image');
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+        }
+
+        var validExt = ".png, .jpeg, .jpg";
+      function fileExtValidate(fdata) {
+      var filePath = fdata.value;
+      var getFileExt = filePath.substring(filePath.lastIndexOf('.') + 1).toLowerCase();
+      var pos = validExt.indexOf(getFileExt);
+      if(pos < 0) {
+        $('input[type=file]').val(null);
+        $('#image_preview').attr('src', '');
+        alert("Please Upload image file");
+        return false;
+        } else {
+          return true;
+        }
+      }
+      var maxSize = 100;
+      function fileSizeValidate(fdata) {
+        if (fdata.files && fdata.files[0]) {
+              var fsize = fdata.files[0].size/1024;
+            if(fsize > maxSize) {
+                $('input[type=file]').val(null);
+                alert('file size not more than 100kb !');
+                return false;
+            } else {
+                return true; 
+            }
+          }
+      }
+    });
+</script>
 
 @endsection

@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/contact_us', 'HomeController@contact_us')->name('contact_us');
-Route::get('user/credential', 'HomeController@user_credential')->name('user_credential');
+Route::get('/user/credential', 'HomeController@user_credential')->name('user_credential');
 
 //shurjopay-payment-route
 Route::get('/shurjopay', 'PaymentController@index')->name('payment.index');

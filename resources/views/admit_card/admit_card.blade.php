@@ -52,26 +52,29 @@
                         </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Online Register') }}</a>
                                 </li>
                             @endif
                         @else
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Home') }}</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('payment.index') }}">{{ __('Payment') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('exam.index') }}">{{ __('Exam') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Result') }}</a>
-                        </li>
+                            @if (Auth::User()->sp_code=='000' && Auth::User()->session==strlen(date('Y')))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('payment.index') }}">{{ __('Payment') }}</a>
+                                </li>
+                            @endif
+                        
                         @if (Auth::User()->is_admin==0)
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admit.index',[Auth::User()->id]) }}">{{ __('Admit Card') }}</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admit.index',[Auth::User()->id]) }}">{{ __('Print Admit Card') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('exam.index') }}">{{ __('Online Exam') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Result') }}</a>
+                            </li>
                         @endif
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('contact_us') }}">{{ __('Contact Us') }}</a>
@@ -126,46 +129,38 @@
                                     <p><strong>Admit card</strong></p>
                                 </div>
                                 <div class="col-3 text-center">
-                                    {{-- <div class="border border-dark">
-                                        <a class="navbar-brand" href="{{ url('/') }}">photo
-                                            {{ config('app.name', 'Laravel') }}
-                                            <img src="{{ asset('img/logo/bcalogo.png') }}" alt="Logo" style="max-width:70px; height:150px" class="p-1">
+                                    <div class="">
+                                        <a class="navbar-brand border border-dark p-1">
+                                            <img src="{{ asset('img/profile/'.$student->image) }}" alt="" style="width:150px; height:150px" class="">
                                         </a>
-                                    </div> --}}
+                                    </div>
                                 </div>
-                                
+                                <style>
+                                    table, th, td {
+                                        padding:.5em;
+	                                }
+                                </style>
                                 <div class="col-12 text-center">
-                                    <table class="text-right" style="margin-left: auto;
+                                    <table class="text-left" style="margin-left: auto;
                                     margin-right: auto;">
-                                        <tr class="p-3">
-                                            <th class="pr-3">Exam Roll :</th>
-                                            <td>{{ $student->user_id }}</td>
+                                        <tr class="">
+                                            <th class="">Exam Roll :</th>
+                                            <td class="">{{ $student->user_id }}</td>
+                                            <th class="">Student's Name :</th>
+                                            <td>{{ $student->name }} asdfasfas</td>
     
                                         </tr>
                                         <tr>
-                                            <th class="pr-3">Student's Name :</th>
-                                            <td>{{ $student->name }}</td>
+                                            <th class="">Father's Name :</th>
+                                            <td>{{ $student->fathername }}asdfasdf</td>
+                                            <th class="">Mother's Name :</th>
+                                            <td>{{ $student->mothername }}asdfasf</td>
                                         </tr>
                                         <tr>
-                                            <th class="pr-3">Father's Name :</th>
-                                            <td>{{ $student->fathername }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="pr-3">Mother's Name :</th>
-                                            <td>{{ $student->mothername }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="pr-3">Class :</th>
-                                            <td>{{ $student->classname }}</td>
+                                            <th class="">Class :</th>
+                                            <td>{{ $student->classname }}asdfasdf</td>
                                         </tr>
                                     </table>
-                                    {{-- <ul class="list-group">
-                                        <li class="list-group-item" style="border: 0 none"><strong class="mr-1 text-right">Exam Roll :</strong></li>
-                                        <li class="list-group-item" style="border: 0 none"><strong class="mr-1"> :</strong>{{ $student->name }}</li>
-                                        <li class="list-group-item" style="border: 0 none"><strong class="mr-1">Father's Name :</strong>{{ $student->fathername }}</li>
-                                        <li class="list-group-item" style="border: 0 none"><strong class="mr-1">Mother's Name:</strong>{{ $student->mothername }}</li>
-                                        <li class="list-group-item" style="border: 0 none"><strong class="mr-1">Class :</strong>{{ $student->classname }}</li>
-                                      </ul> --}}
                                 </div>
                                 <div class="col-12 text-right">
                                     <a class="navbar-brand" href="">
@@ -187,38 +182,15 @@
             </div>
             <div class="container">
                 <div class="row justify-content-center">
-            <div class="col-md-12 mt-5">
-                <div class="jumbotron" style="margin-bottom:0">
-                   <div class="row">
-                    <div class="col-md-6">
-                        <h5>পরীক্ষা নিয়ন্ত্রক: </h5>
-                        <p>01816819679</p>
-                    </div>
-                        <div class="col-md-6">
-                            <h5>হেড অফিস:</h5>
-                            <p>পূর্ব তেজতুরীবাজার (সরকারী বিজ্ঞান কলেজের বিপরীতে) <br> ফার্মগেট, তেজগাঁও, ঢাকা। <br>ফোন: 029121212</p>
-                                
-                            
+                    <div class="col-md-12 mt-5">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                &copy; Copyright 2020 <a href="http://www.fmit.app">fmit<a>
+                            </div>
                         </div>
-                       <div class="col-md-6">
-                        <h5>মোহাম্মদপুর অফিস:</h5>
-                        <p>16/14, তাজমহলরোড, মোহাম্মদপুর, ঢাকা।<br>
-                             ফোন: 029111505
-                        
-                       </div>
-                       <div class="col-md-6">
-                        <h5> আজিমপুর অফিস:</h5>
-                        <p> 103, আজিমপুর রোড, আজিমপুর, ঢাকা।<br>
-                            ফোন: 029665143</p>
-                            
-                        
-                       </div>
-                   </div>
-                </div>
-                       
                    </div>
                   </div>
-            </div>
+                </div>
                 </div>
             </div>
         </main>
